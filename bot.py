@@ -1,4 +1,4 @@
-import os
+import os, requests
 from telebot import TeleBot, types
 from dotenv import load_dotenv
 
@@ -30,6 +30,15 @@ def key(message):
     itembtn3 = types.KeyboardButton('d')
     markup.add(itembtn1, itembtn2, itembtn3)
     bot.send_message(message.chat.id, "Choose one letter:", reply_markup=markup)
+    
+    
+@bot.message_handler(commands=['api'])
+def key(message):
+    response = requests.get('http://localhost:8000/')
+    response.raise_for_status()
+    data = response.json()
+    
+    bot.send_message(message.chat.id, data['message'])
     
     
     

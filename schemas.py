@@ -25,17 +25,36 @@ class Item(ItemBase):
 
 
 class UserBase(BaseModel):
-    email: str
+    username: str
+    TelegramUserId: str
+    is_seller: bool = False
 
 
 class UserCreate(UserBase):
-    password: str
+    pass
 
 
 class User(UserBase):
     id: uuid.UUID
-    is_active: bool
     items: list[Item] = []
 
+    class Config:
+        orm_mode = True
+
+
+class BidBase(BaseModel):
+    amount: int
+    timestamp: datetime.datetime
+   
+
+class BidCreate(BidBase):
+    pass
+
+
+class Bid(BidBase):
+    id: uuid.UUID
+    user_id: uuid.UUID
+    item_id: uuid.UUID
+    
     class Config:
         orm_mode = True
