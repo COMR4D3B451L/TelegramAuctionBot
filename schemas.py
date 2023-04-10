@@ -2,6 +2,11 @@ from pydantic import BaseModel
 import uuid, datetime
 
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
 class ItemBase(BaseModel):
     title: str
     description: str | None = None
